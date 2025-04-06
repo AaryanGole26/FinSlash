@@ -94,4 +94,11 @@ Your `candidates.csv` file should include the following columns:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+---
+
+## Contact
+
+[![GitHub - AaryanGole26](https://img.shields.io/badge/GitHub%20-%23AaryanGole26-%2300A6A6?style=for-the-badge)](https://github.com/AaryanGole26)
+[![Repository - FinSlash](https://img.shields.io/badge/Repository%20-%23FinSlash-%2300A6A6?style=for-the-badge)](https://github.com/AaryanGole26/FinSlash)
+
 > "Lending made simple. Decisions made smart."

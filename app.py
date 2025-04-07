@@ -302,5 +302,3 @@ st.markdown("""
         © 2025 FinSlash | Powered by Streamlit | Built with ❤️ by the 3JT Team ⚔️
     </div>
 """, unsafe_allow_html=True)
-
-make the app dynamic in theme wise like if its in dark mode make the text in white and if its in light mode make the text in black

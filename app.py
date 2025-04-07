@@ -8,9 +8,42 @@ from sklearn.preprocessing import LabelEncoder
 # Streamlit config
 st.set_page_config(page_title="FinSlash - Loan Approval", layout="wide", initial_sidebar_state="expanded")
 
-# Sidebar background image CSS with readable text
+# JavaScript to detect theme and apply dynamic styles
 st.markdown("""
+    <script>
+    const setThemeStyles = () => {
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.style.setProperty('--text-color', isDarkMode ? '#ffffff' : '#2c3e50');
+        document.documentElement.style.setProperty('--subheader-color', isDarkMode ? '#e0e0e0' : '#34495e');
+        document.documentElement.style.setProperty('--background-content', isDarkMode ? 'rgba(30, 30, 30, 0.9)' : 'rgba(255, 255, 255, 0.9)');
+        document.documentElement.style.setProperty('--footer-color', isDarkMode ? '#b0b0b0' : '#7f8c8d');
+    };
+    setThemeStyles();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setThemeStyles);
+    </script>
     <style>
+    :root {
+        --text-color: #2c3e50;
+        --subheader-color: #34495e;
+        --background-content: rgba(255, 255, 255, 0.9);
+        --footer-color: #7f8c8d;
+    }
+    .stTitle {color: var(--text-color); font-family: 'Arial', sans-serif; font-weight: bold;}
+    .stSubheader {color: var(--subheader-color); font-family: 'Arial', sans-serif;}
+    .stMarkdown {font-family: 'Arial', sans-serif; color: var(--text-color);}
+    .stSelectbox {background-color: #ecf0f1; border-radius: 5px; padding: 5px;}
+    .stFileUploader {background-color: #ecf0f1; border-radius: 5px; padding: 10px;}
+    .prediction-approved {color: #27ae60; font-size: 24px; font-weight: bold;}
+    .prediction-rejected {color: #c0392b; font-size: 24px; font-weight: bold;}
+    .sidebar .sidebar-content {background-color: #34495e; color: white;}
+    .footer {text-align: center; color: var(--footer-color); font-size: 12px; padding: 20px;}
+    .content-wrapper {
+        background-color: var(--background-content);
+        padding: 25px;
+        border-radius: 15px;
+        margin: 20px;
+    }
+    /* Ensure sidebar text remains readable */
     section[data-testid="stSidebar"] {
         background-image: url("https://w0.peakpx.com/wallpaper/981/932/HD-wallpaper-personal-loan-emi-calculator-personal-loan-personal-loan-india-fianance-loans-banking.jpg");
         background-size: cover;
@@ -18,7 +51,6 @@ st.markdown("""
         background-position: center;
         color: white !important;
     }
-
     section[data-testid="stSidebar"] .css-1cpxqw2, /* Sidebar title */
     section[data-testid="stSidebar"] .css-16huue1, /* Sidebar radio options */
     section[data-testid="stSidebar"] .css-1fj2g2n, /* Radio text */
@@ -32,36 +64,12 @@ st.markdown("""
     section[data-testid="stSidebar"] h6,
     section[data-testid="stSidebar"] p {
         color: white !important;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Improves readability */
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
     }
-
     section[data-testid="stSidebar"] .stRadio > div {
         background-color: rgba(0, 0, 0, 0.3);
         padding: 10px;
         border-radius: 10px;
-    }
-
-    </style>
-""", unsafe_allow_html=True)
-
-
-# Custom CSS Styling
-st.markdown("""
-    <style>
-    .stTitle {color: #2c3e50; font-family: 'Arial', sans-serif; font-weight: bold;}
-    .stSubheader {color: #34495e; font-family: 'Arial', sans-serif;}
-    .stMarkdown {font-family: 'Arial', sans-serif;}
-    .stSelectbox {background-color: #ecf0f1; border-radius: 5px; padding: 5px;}
-    .stFileUploader {background-color: #ecf0f1; border-radius: 5px; padding: 10px;}
-    .prediction-approved {color: #27ae60; font-size: 24px; font-weight: bold;}
-    .prediction-rejected {color: #c0392b; font-size: 24px; font-weight: bold;}
-    .sidebar .sidebar-content {background-color: #34495e; color: white;}
-    .footer {text-align: center; color: #7f8c8d; font-size: 12px; padding: 20px;}
-    .content-wrapper {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 25px;
-        border-radius: 15px;
-        margin: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -188,9 +196,9 @@ if page == "Dashboard":
             ax1.bar(['Applicant', 'Coapplicant'], 
                     [selected['ApplicantIncome'], selected['CoapplicantIncome']], 
                     color=['#3498db', '#2ecc71'], edgecolor='black', linewidth=1)
-            ax1.set_title('Income Comparison', fontsize=12, color='#2c3e50', pad=10)
-            ax1.set_ylabel('Income ($)', fontsize=10)
-            ax1.tick_params(axis='both', labelsize=8)
+            ax1.set_title('Income Comparison', fontsize=12, color='var(--text-color)', pad=10)
+            ax1.set_ylabel('Income ($)', fontsize=10, color='var(--text-color)')
+            ax1.tick_params(axis='both', labelsize=8, colors='var(--text-color)')
             plt.tight_layout()
             st.pyplot(fig1)
 
@@ -205,8 +213,9 @@ if page == "Dashboard":
             ax2.pie([values[i] for i in non_zero_indices], 
                     labels=[property_areas[i] for i in non_zero_indices], 
                     autopct='%1.1f%%', startangle=90, colors=[colors[i] for i in non_zero_indices], 
-                    textprops={'fontsize': 10}, wedgeprops={'edgecolor': 'white', 'linewidth': 1})
-            ax2.set_title('Property Area', fontsize=12, color='#2c3e50', pad=10)
+                    textprops={'fontsize': 10, 'color': 'var(--text-color)'}, 
+                    wedgeprops={'edgecolor': 'white', 'linewidth': 1})
+            ax2.set_title('Property Area', fontsize=12, color='var(--text-color)', pad=10)
             ax2.axis('equal')
             st.pyplot(fig2)
 
@@ -215,11 +224,11 @@ if page == "Dashboard":
             months = range(1, int(selected['Loan_Amount_Term']) + 1)
             loan_repayment = [selected['LoanAmount'] / selected['Loan_Amount_Term']] * len(months)
             ax3.plot(months, loan_repayment, marker='o', color='#9b59b6', linewidth=2, markersize=5)
-            ax3.set_title('Repayment Schedule', fontsize=12, color='#2c3e50', pad=10)
-            ax3.set_xlabel('Months', fontsize=10)
-            ax3.set_ylabel('Monthly ($)', fontsize=10)
+            ax3.set_title('Repayment Schedule', fontsize=12, color='var(--text-color)', pad=10)
+            ax3.set_xlabel('Months', fontsize=10, color='var(--text-color)')
+            ax3.set_ylabel('Monthly ($)', fontsize=10, color='var(--text-color)')
             ax3.grid(True, linestyle='--', alpha=0.7)
-            ax3.tick_params(axis='both', labelsize=8)
+            ax3.tick_params(axis='both', labelsize=8, colors='var(--text-color)')
             plt.tight_layout()
             st.pyplot(fig3)
 
@@ -232,8 +241,8 @@ elif page == "About Us":
 
     st.markdown("""
         <div style='text-align: center; padding: 20px; background-color: #ecf0f1; border-radius: 10px;'>
-            <h3 style='color: #2c3e50;'>Welcome to FinSlash</h3>
-            <p style='color: #34495e; font-size: 16px;'> 
+            <h3 style='color: var(--text-color);'>Welcome to FinSlash</h3>
+            <p style='color: var(--subheader-color); font-size: 16px;'> 
                 We’re transforming the way loan approvals work—making them faster, smarter, and fairer with cutting-edge AI.
             </p>
         </div>
@@ -291,7 +300,7 @@ elif page == "About Us":
     """, unsafe_allow_html=True)
 
     st.markdown("""
-        <div style='text-align: center; margin-top: 20px; color: #7f8c8d;'>
+        <div style='text-align: center; margin-top: 20px; color: var(--footer-color);'>
             <i>“Lending made simple. Decisions made smart.”</i>
         </div>
     """, unsafe_allow_html=True)

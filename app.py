@@ -73,7 +73,7 @@ page = st.sidebar.radio("Go to", ["About Us", "Dashboard"])
 # Load training dataset
 @st.cache_data
 def load_data():
-    df = pd.read_csv('train.csv')
+    df = pd.read_csv('datasets/train.csv')
     return df
 
 df = load_data()

@@ -43,7 +43,6 @@ st.markdown("""
         border-radius: 15px;
         margin: 20px;
     }
-    /* Ensure sidebar text remains readable */
     section[data-testid="stSidebar"] {
         background-image: url("https://w0.peakpx.com/wallpaper/981/932/HD-wallpaper-personal-loan-emi-calculator-personal-loan-personal-loan-india-fianance-loans-banking.jpg");
         background-size: cover;
@@ -51,11 +50,11 @@ st.markdown("""
         background-position: center;
         color: white !important;
     }
-    section[data-testid="stSidebar"] .css-1cpxqw2, /* Sidebar title */
-    section[data-testid="stSidebar"] .css-16huue1, /* Sidebar radio options */
-    section[data-testid="stSidebar"] .css-1fj2g2n, /* Radio text */
-    section[data-testid="stSidebar"] .css-1d391kg, /* Selected radio text */
-    section[data-testid="stSidebar"] label, /* Labels in sidebar */
+    section[data-testid="stSidebar"] .css-1cpxqw2,
+    section[data-testid="stSidebar"] .css-16huue1,
+    section[data-testid="stSidebar"] .css-1fj2g2n,
+    section[data-testid="stSidebar"] .css-1d391kg,
+    section[data-testid="stSidebar"] label,
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3,
@@ -191,14 +190,17 @@ if page == "Dashboard":
 
         col1, col2, col3 = st.columns(3)
 
+        # Define a neutral color for Matplotlib that works in both themes
+        plot_text_color = '#ffffff' if st.get_option('theme.base') == 'dark' else '#2c3e50'
+
         with col1:
             fig1, ax1 = plt.subplots(figsize=(5, 3), facecolor='none')
             ax1.bar(['Applicant', 'Coapplicant'], 
                     [selected['ApplicantIncome'], selected['CoapplicantIncome']], 
                     color=['#3498db', '#2ecc71'], edgecolor='black', linewidth=1)
-            ax1.set_title('Income Comparison', fontsize=12, color='var(--text-color)', pad=10)
-            ax1.set_ylabel('Income ($)', fontsize=10, color='var(--text-color)')
-            ax1.tick_params(axis='both', labelsize=8, colors='var(--text-color)')
+            ax1.set_title('Income Comparison', fontsize=12, color=plot_text_color, pad=10)
+            ax1.set_ylabel('Income ($)', fontsize=10, color=plot_text_color)
+            ax1.tick_params(axis='both', labelsize=8, colors=plot_text_color)
             plt.tight_layout()
             st.pyplot(fig1)
 
@@ -213,9 +215,9 @@ if page == "Dashboard":
             ax2.pie([values[i] for i in non_zero_indices], 
                     labels=[property_areas[i] for i in non_zero_indices], 
                     autopct='%1.1f%%', startangle=90, colors=[colors[i] for i in non_zero_indices], 
-                    textprops={'fontsize': 10, 'color': 'var(--text-color)'}, 
+                    textprops={'fontsize': 10, 'color': plot_text_color}, 
                     wedgeprops={'edgecolor': 'white', 'linewidth': 1})
-            ax2.set_title('Property Area', fontsize=12, color='var(--text-color)', pad=10)
+            ax2.set_title('Property Area', fontsize=12, color=plot_text_color, pad=10)
             ax2.axis('equal')
             st.pyplot(fig2)
 
@@ -224,11 +226,11 @@ if page == "Dashboard":
             months = range(1, int(selected['Loan_Amount_Term']) + 1)
             loan_repayment = [selected['LoanAmount'] / selected['Loan_Amount_Term']] * len(months)
             ax3.plot(months, loan_repayment, marker='o', color='#9b59b6', linewidth=2, markersize=5)
-            ax3.set_title('Repayment Schedule', fontsize=12, color='var(--text-color)', pad=10)
-            ax3.set_xlabel('Months', fontsize=10, color='var(--text-color)')
-            ax3.set_ylabel('Monthly ($)', fontsize=10, color='var(--text-color)')
+            ax3.set_title('Repayment Schedule', fontsize=12, color=plot_text_color, pad=10)
+            ax3.set_xlabel('Months', fontsize=10, color=plot_text_color)
+            ax3.set_ylabel('Monthly ($)', fontsize=10, color=plot_text_color)
             ax3.grid(True, linestyle='--', alpha=0.7)
-            ax3.tick_params(axis='both', labelsize=8, colors='var(--text-color)')
+            ax3.tick_params(axis='both', labelsize=8, colors=plot_text_color)
             plt.tight_layout()
             st.pyplot(fig3)
 

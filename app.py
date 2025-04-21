@@ -260,7 +260,7 @@ elif page == "About Us":
     """, unsafe_allow_html=True)
 
     st.markdown("### \U0001F465 Meet the 3JT Team")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4, col5 = st.columns(3)
     with col1:
         st.markdown("""
             **Aaryan Gole** 🧙‍♂️  <br>
@@ -281,6 +281,20 @@ elif page == "About Us":
             Frontend Developer and UI/UX Designer <br>
             📧 nitish.224827101@vcet.edu.in <br>
             📞 +91 73852 08766
+        """, unsafe_allow_html=True)
+    with col4:
+        st.markdown("""
+            **Mohd. Ali Jaffari** 🧙‍♂️  <br>
+            AI Analyst and Backend Developer <br>
+            📧 mohammedali.224807101@vcet.edu.in <br>
+            📞 +91 98929 89796
+        """, unsafe_allow_html=True)
+    with col5:
+        st.markdown("""
+            **Pradeep Rathod** 🧙‍♂️  <br>
+            Frontend Developer <br>
+            📧 pradeep.225167104@vcet.edu.in <br>
+            📞 +91 74476 28422
         """, unsafe_allow_html=True)
 
     st.markdown("### \U0001F4E9 Get in Touch")

@@ -260,7 +260,7 @@ elif page == "About Us":
     """, unsafe_allow_html=True)
 
     st.markdown("### \U0001F465 Meet the 3JT Team")
-    col1, col2, col3, col4, col5 = st.columns(3)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.markdown("""
             **Aaryan Gole** 🧙‍♂️  <br>
